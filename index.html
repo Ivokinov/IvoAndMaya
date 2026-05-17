@@ -199,6 +199,43 @@
       display: block;
     }
 
+    .story-carousel {
+      height: 100%;
+      border-radius: 32px;
+      overflow: hidden;
+      min-height: 620px;
+      max-height: 620px;
+    }
+
+    .story-carousel .carousel-inner,
+    .story-carousel .carousel-item {
+      height: 620px;
+      min-height: 620px;
+      max-height: 620px;
+    }
+
+    .story-carousel img {
+      width: 100%;
+      height: 620px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .story-carousel .carousel-control-prev,
+    .story-carousel .carousel-control-next {
+      width: 12%;
+      opacity: .9;
+    }
+
+    .story-carousel .carousel-control-prev-icon,
+    .story-carousel .carousel-control-next-icon {
+      background-color: rgba(0,0,0,.35);
+      border-radius: 50%;
+      padding: 18px;
+      backdrop-filter: blur(6px);
+    }
+
     .photo-frame.portrait {
       height: clamp(560px, 78vh, 860px);
     }
@@ -367,7 +404,7 @@
         <div class="row g-4">
           <div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="0">
             <div class="glass timeline-card">
-              <div class="timeline-time mb-2">3:30</div>
+              <div class="timeline-time mb-2">15:30</div>
               <h3 class="serif h2">Венчавка</h3>
               <p class="soft-text mb-0">Храм „Св. Прокопий Варненски“</p>
             </div>
@@ -375,7 +412,7 @@
 
           <div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="100">
             <div class="glass timeline-card">
-              <div class="timeline-time mb-2">4:30</div>
+              <div class="timeline-time mb-2">16:30</div>
               <h3 class="serif h2">Welcome drink</h3>
               <p class="soft-text mb-0">Вила Буров, Варна</p>
             </div>
@@ -383,60 +420,114 @@
 
           <div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="200">
             <div class="glass timeline-card">
-              <div class="timeline-time mb-2">5:00</div>
+              <div class="timeline-time mb-2">17:00</div>
               <h3 class="serif h2">Изнесена церемония</h3>
             </div>
           </div>
 
           <div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="300">
             <div class="glass timeline-card">
-              <div class="timeline-time mb-2">6:00</div>
+              <div class="timeline-time mb-2">18:00</div>
               <h3 class="serif h2">Вечеря</h3>
             </div>
           </div>
         </div>
 
-        <div class="glass p-4 p-lg-5 mt-4 text-center" data-aos="fade-up">
-          <p class="soft-text mb-0">За да споделим тази вечер по възможно най-спокойния и специален начин, празникът ще бъде само за възрастни.</p>
+        <div class="glass p-4 p-lg-5 mt-4 text-center" data-aos="fade-up" style="border:1px solid rgba(232,201,121,.45);box-shadow:0 20px 60px rgba(232,201,121,.12);">
+          <p class="mb-0 fw-bold" style="font-size:1.15rem;color:var(--ivory);letter-spacing:.01em;">
+            За да споделим тази вечер по възможно най-спокойния и специален начин, празникът ще бъде само за възрастни.
+          </p>
         </div>
       </div>
     </section>
 
     <section class="section" id="story">
       <div class="container">
-        <div class="row align-items-center g-5">
+
+        <div class="row align-items-center g-5 mb-5">
           <div class="col-lg-6" data-aos="fade-right">
             <div class="story-copy">
-              <div class="eyebrow mb-3">Нашата история</div>
-              <h2 class="serif fw-bold mb-4">Най-красивите истории започват тихо.</h2>
-              <p class="soft-text fs-5">С времето малките моменти се превърнаха в наше място — смях, пътувания, подкрепа и онова усещане, че домът не е адрес, а човек.</p>
+              <div class="eyebrow mb-3">От Мая</div>
+              <h2 class="serif fw-bold mb-4">Той ми помогна да приема себе си.</h2>
+              <p class="soft-text fs-5">Той ми помогна да приема всички свои страни и да им позволя да съществуват заедно. До него отново заобичах променливостта в себе си.</p>
             </div>
           </div>
           <div class="col-lg-6" data-aos="fade-left">
-            <div class="photo-frame">
-              <img data-asset="story-1" alt="Иво и Мая" loading="lazy">
+            <div id="storyCarousel1" class="carousel slide photo-frame story-carousel" data-bs-ride="carousel">
+              <div class="carousel-inner" id="storyCarousel1Items"></div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#storyCarousel1" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#storyCarousel1" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+              </button>
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section class="section pt-0">
-      <div class="container">
+        <div class="row align-items-center g-5 flex-lg-row-reverse mb-5">
+          <div class="col-lg-6" data-aos="fade-left">
+            <div class="story-copy ms-lg-auto">
+              <div class="eyebrow mb-3">От Иво</div>
+              <h2 class="serif fw-bold mb-4">Тя ми напомни кое е важно.</h2>
+              <p class="soft-text fs-5">Тя ми помогна да намирам баланс между амбицията и спокойствието. Напомни ми да не забравям лекотата, смеха и непринудеността в живота.</p>
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-right">
+            <div id="storyCarousel2" class="carousel slide photo-frame story-carousel" data-bs-ride="carousel">
+              <div class="carousel-inner" id="storyCarousel2Items"></div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#storyCarousel2" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#storyCarousel2" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row align-items-center g-5 mb-5">
+          <div class="col-lg-6" data-aos="fade-right">
+            <div class="story-copy">
+              <div class="eyebrow mb-3">Нашата връзка</div>
+              <h2 class="serif fw-bold mb-4">Ние виждаме един в друг не само партньор.</h2>
+              <p class="soft-text fs-5">Намерихме човек, с когото да създадем семейство. Намерихме другия, с когото да изследваме света, да се забавляваме и който ни дава пространството да изследваме и себе си.</p>
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-left">
+            <div id="storyCarousel3" class="carousel slide photo-frame portrait story-carousel" data-bs-ride="carousel">
+              <div class="carousel-inner" id="storyCarousel3Items"></div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#storyCarousel3" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#storyCarousel3" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div class="row align-items-center g-5 flex-lg-row-reverse">
           <div class="col-lg-6" data-aos="fade-left">
             <div class="story-copy ms-lg-auto">
-              <div class="eyebrow mb-3">Норвегия</div>
-              <h2 class="serif fw-bold mb-4">Под зеленото небе.</h2>
-              <p class="soft-text fs-5">Някъде сред тишината на северната нощ, под звездите и сиянието, започна следващата глава от нашата история.</p>
+              <div class="eyebrow mb-3">Нашето завинаги</div>
+              <h2 class="serif fw-bold mb-4">И сега започва нашето завинаги.</h2>
+              <p class="soft-text fs-5">Заедно развихме усет за стил, любов към малките моменти и усещане за дом — където и да сме по света, стига да сме един до друг.</p>
             </div>
           </div>
           <div class="col-lg-6" data-aos="fade-right">
-            <div class="photo-frame portrait">
-              <img data-asset="story-2" alt="Предложението под северното сияние" loading="lazy">
+            <div id="storyCarousel4" class="carousel slide photo-frame story-carousel" data-bs-ride="carousel">
+              <div class="carousel-inner" id="storyCarousel4Items"></div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#storyCarousel4" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#storyCarousel4" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+              </button>
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
@@ -459,7 +550,7 @@
                   <small>Алергени: мляко</small>
                 </div>
 
-                <div class="menu-item text-center mt-4">
+                <div class="menu-item text-center mt-4 border-0">
                   <div class="eyebrow mb-2" style="color:#6b4c16">Предястие</div>
                   <h3 class="serif fw-bold mb-2" style="font-size:2.2rem;">Скариди по Средиземноморски</h3>
                   <p>С вино, чесън, копър и лимон.</p>
@@ -468,19 +559,12 @@
 
                 <div class="menu-item text-center mt-4">
                   <div class="eyebrow mb-2" style="color:#6b4c16">Основно</div>
-                  <h3 class="serif fw-bold mb-2" style="font-size:2.2rem;">Ципура / Лаврак</h3>
+                  <h3 class="serif fw-bold mb-2" style="font-size:2.2rem;">Ципура</h3>
                   <p>С френски картоф и лимонов дресинг.</p>
                 </div>
 
-                <div class="text-center mt-5">
-                  <h3 class="serif menu-category d-inline-block px-4">Всеки куверт включва</h3>
-                <div class="mb-0" style="color:rgba(27,23,18,.72);line-height:2;">
-                  <div>антипаста</div>
-                  <div>хлебче</div>
-                  <div>минерална вода 330 ml</div>
-                  <div>безалкохолна напитка 250 ml</div>
                 </div>
-              </div>
+            </div>
             </div>
           </div>
         </div>
@@ -562,8 +646,12 @@
       hero: 'assets/hero/1.jpg',
       ending: 'assets/ending/1.jpg',
       story: {
-        first: 'assets/story/1.jpg',
-        second: 'assets/story/2.jpg'
+        groups: {
+          1: { folder: 'assets/story/1', count: 10 },
+          2: { folder: 'assets/story/2', count: 10 },
+          3: { folder: 'assets/story/3', count: 10 },
+          4: { folder: 'assets/story/4', count: 10 }
+        }
       },
       gallery: {
         folder: 'assets/gallery',
@@ -598,10 +686,41 @@
         setBackgroundImage(ending, assetConfig.ending, '--ending-image');
       }
 
-      const storyFirst = document.querySelector('[data-asset="story-1"]');
-      const storySecond = document.querySelector('[data-asset="story-2"]');
-      if (storyFirst && await imageExists(assetConfig.story.first)) storyFirst.src = assetConfig.story.first;
-      if (storySecond && await imageExists(assetConfig.story.second)) storySecond.src = assetConfig.story.second;
+      for (const [groupId, group] of Object.entries(assetConfig.story.groups)) {
+        const container = document.getElementById(`storyCarousel${groupId}Items`);
+        if (!container) continue;
+
+        let added = 0;
+
+        for (let i = 1; i <= group.count; i++) {
+          let foundSrc = null;
+
+          for (const ext of assetConfig.gallery.extensions) {
+            const trySrc = `${group.folder}/${i}.${ext}`;
+            if (await imageExists(trySrc)) {
+              foundSrc = trySrc;
+              break;
+            }
+          }
+
+          if (!foundSrc) continue;
+
+          const item = document.createElement('div');
+          item.className = `carousel-item${added === 0 ? ' active' : ''}`;
+          item.innerHTML = `<img src="${foundSrc}" alt="Story image ${i}" loading="lazy">`;
+          container.appendChild(item);
+          added++;
+        }
+
+        if (added === 0) {
+          container.innerHTML = `
+            <div class="carousel-item active">
+              <div class="d-flex align-items-center justify-content-center h-100 p-5 text-center soft-text">
+                Добави снимки в ${group.folder}/ като 1.jpg, 2.jpg, 3.jpg...
+              </div>
+            </div>`;
+        }
+      }
 
       const galleryContainer = document.getElementById('galleryCarouselItems');
       if (!galleryContainer) return;
