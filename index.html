@@ -379,7 +379,7 @@
           <h2 class="serif fw-bold" style="font-size:clamp(4rem,11vw,9rem);line-height:.85;">Кадри от нашето завинаги</h2>
         </div>
 
-        <div id="loveCarousel" class="carousel slide" data-bs-ride="carousel" data-aos="zoom-in-up">
+        <div id="loveCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
           <div class="carousel-inner photo-frame" id="galleryCarouselItems"></div>
           <button class="carousel-control-prev" type="button" data-bs-target="#loveCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -674,74 +674,28 @@
       element.style.setProperty(cssVariable, `url("${src}")`);
     }
 
-    async function initAssets() {
-      console.log('Loading wedding assets...');
-      const heroBg = document.getElementById('heroBg');
-      if (await imageExists(assetConfig.hero)) {
-        setBackgroundImage(heroBg, assetConfig.hero, '--hero-image');
+    async function findImage(basePath, index, extensions) {
+      for (const ext of extensions) {
+        const src = `${basePath}/${index}.${ext}`;
+        if (await imageExists(src)) return src;
       }
+      return null;
+    }
 
-      const ending = document.querySelector('.ending');
-      if (await imageExists(assetConfig.ending)) {
-        setBackgroundImage(ending, assetConfig.ending, '--ending-image');
-      }
-
-      for (const [groupId, group] of Object.entries(assetConfig.story.groups)) {
-        const container = document.getElementById(`storyCarousel${groupId}Items`);
-        if (!container) continue;
-
-        let added = 0;
-
-        for (let i = 1; i <= group.count; i++) {
-          let foundSrc = null;
-
-          for (const ext of assetConfig.gallery.extensions) {
-            const trySrc = `${group.folder}/${i}.${ext}`;
-            if (await imageExists(trySrc)) {
-              foundSrc = trySrc;
-              break;
-            }
-          }
-
-          if (!foundSrc) continue;
-
-          const item = document.createElement('div');
-          item.className = `carousel-item${added === 0 ? ' active' : ''}`;
-          item.innerHTML = `<img src="${foundSrc}" alt="Story image ${i}" loading="lazy">`;
-          container.appendChild(item);
-          added++;
-        }
-
-        if (added === 0) {
-          container.innerHTML = `
-            <div class="carousel-item active">
-              <div class="d-flex align-items-center justify-content-center h-100 p-5 text-center soft-text">
-                Добави снимки в ${group.folder}/ като 1.jpg, 2.jpg, 3.jpg...
-              </div>
-            </div>`;
-        }
-      }
-
+    async function loadGalleryCarousel() {
       const galleryContainer = document.getElementById('galleryCarouselItems');
       if (!galleryContainer) return;
 
+      galleryContainer.innerHTML = '';
       let added = 0;
+
       for (let i = 1; i <= assetConfig.gallery.count; i++) {
-        let foundSrc = null;
-
-        for (const ext of assetConfig.gallery.extensions) {
-          const trySrc = `${assetConfig.gallery.folder}/${i}.${ext}`;
-          if (await imageExists(trySrc)) {
-            foundSrc = trySrc;
-            break;
-          }
-        }
-
+        const foundSrc = await findImage(assetConfig.gallery.folder, i, assetConfig.gallery.extensions);
         if (!foundSrc) continue;
 
         const item = document.createElement('div');
         item.className = `carousel-item${added === 0 ? ' active' : ''}`;
-        item.innerHTML = `<img src="${foundSrc}" class="d-block w-100" alt="Кадър ${i} от Иво и Мая">`;
+        item.innerHTML = `<img src="${foundSrc}" class="d-block w-100" alt="Кадър ${i} от Иво и Мая" loading="eager" decoding="async">`;
         galleryContainer.appendChild(item);
         added++;
       }
@@ -754,9 +708,66 @@
             </div>
           </div>`;
       }
+
+      const carouselElement = document.getElementById('loveCarousel');
+      bootstrap.Carousel.getOrCreateInstance(carouselElement, { interval: 4000, ride: 'carousel' });
     }
 
-    initAssets();
+    async function loadStoryCarousels() {
+      for (const [groupId, group] of Object.entries(assetConfig.story.groups)) {
+        const container = document.getElementById(`storyCarousel${groupId}Items`);
+        if (!container) continue;
+
+        container.innerHTML = '';
+        let added = 0;
+
+        for (let i = 1; i <= group.count; i++) {
+          const foundSrc = await findImage(group.folder, i, assetConfig.gallery.extensions);
+          if (!foundSrc) continue;
+
+          const item = document.createElement('div');
+          item.className = `carousel-item${added === 0 ? ' active' : ''}`;
+          item.innerHTML = `<img src="${foundSrc}" alt="Story image ${i}" loading="lazy" decoding="async">`;
+          container.appendChild(item);
+          added++;
+        }
+
+        if (added === 0) {
+          container.innerHTML = `
+            <div class="carousel-item active">
+              <div class="d-flex align-items-center justify-content-center h-100 p-5 text-center soft-text">
+                Добави снимки в ${group.folder}/ като 1.jpg, 2.jpg, 3.jpg...
+              </div>
+            </div>`;
+        }
+
+        const carouselElement = document.getElementById(`storyCarousel${groupId}`);
+        bootstrap.Carousel.getOrCreateInstance(carouselElement, { interval: 4500, ride: 'carousel' });
+      }
+    }
+
+    async function initAssets() {
+      console.log('Loading wedding assets...');
+
+      const heroBg = document.getElementById('heroBg');
+      if (await imageExists(assetConfig.hero)) {
+        setBackgroundImage(heroBg, assetConfig.hero, '--hero-image');
+      }
+
+      // Load the first visible carousel immediately, before checking all story images.
+      await loadGalleryCarousel();
+
+      const ending = document.querySelector('.ending');
+      if (await imageExists(assetConfig.ending)) {
+        setBackgroundImage(ending, assetConfig.ending, '--ending-image');
+      }
+
+      await loadStoryCarousels();
+
+      if (window.AOS) AOS.refreshHard();
+    }
+
+    document.addEventListener('DOMContentLoaded', initAssets);
 
     const rsvpForm = document.getElementById('rsvpForm');
     rsvpForm.addEventListener('submit', function (event) {
