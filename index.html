@@ -590,7 +590,13 @@
             <p class="soft-text mb-0">Моля, потвърди присъствие. Отговорът ще бъде изпратен към <a href="mailto:ivo.ilianov.ivanov@gmail.com">ivo.ilianov.ivanov@gmail.com</a>.</p>
           </div>
 
-          <form id="rsvpForm" class="needs-validation" novalidate action="https://formsubmit.co/ivo.ilianov.ivanov@gmail.com" method="POST">
+          <form id="rsvpForm"
+                class="needs-validation"
+                novalidate
+                action="https://api.web3forms.com/submit"
+                method="POST">
+
+            <input type="hidden" name="access_key" value="43e7930b-946f-422e-98bf-3fe8c67cfddc">
             <div class="row g-3">
               <div class="col-md-6">
                 <label class="form-label">Име и фамилия</label>
@@ -608,20 +614,11 @@
                 <label class="form-label">Брой гости</label>
                 <input type="number" class="form-control" name="guests" min="1" max="4" value="1" required>
               </div>
-              <div class="col-md-6">
-                <label class="form-label">Меню</label>
-                <select class="form-select" name="menu">
-                  <option>Стандартно</option>
-                  <option>Веган</option>
-                </select>
-              </div>
               <div class="col-12">
                 <label class="form-label">Бележки / алергии</label>
                 <textarea class="form-control" name="notes" rows="4" placeholder="Напр. алергии, хранителни предпочитания…"></textarea>
               </div>
               <input type="hidden" name="_subject" value="RSVP — Сватбата на Иво и Мая">
-              <input type="hidden" name="_captcha" value="false">
-              <input type="hidden" name="_template" value="table">
 
               <div class="col-12 d-grid mt-3">
                 <button class="btn btn-aurora btn-lg rounded-pill" type="submit">Изпрати RSVP</button>
