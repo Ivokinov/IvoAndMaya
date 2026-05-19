@@ -619,6 +619,7 @@
                 <textarea class="form-control" name="notes" rows="4" placeholder="Напр. алергии, хранителни предпочитания…"></textarea>
               </div>
               <input type="hidden" name="_subject" value="RSVP — Сватбата на Иво и Мая">
+              <input type="hidden" name="redirect" value="https://ivokinov.github.io/IvoAndMaya/#rsvp">
 
               <div class="col-12 d-grid mt-3">
                 <button class="btn btn-aurora btn-lg rounded-pill" type="submit">Изпрати RSVP</button>
@@ -773,6 +774,11 @@
         rsvpForm.classList.add('was-validated');
       }
     });
+
+    // Prevent browser restoring weird scroll positions after external form redirects.
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
   </script>
 </body>
 </html>
